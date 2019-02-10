@@ -1,9 +1,13 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
     <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
+      <input v-model="city" placeholder="your city">
+      <button
+        class="button is-info"
+        @click="getUsers">
+        Get Repos
+      </button>
+      <h5>{{ city }}</h5>
       <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
       <div v-for="event in events">
         <h5>{{event.name}}</h5>
@@ -24,14 +28,16 @@ export default {
   },
   data: function(){
     return{
-      events: []
+      events: [],
+      city: 'berlin'
     }
   },
   methods: {
     getUsers: function() {
       var vm = this;
+      let repoUrl = 'http://app.ticketmaster.com/discovery/v2/events.json?apikey=\tv9Gbr2U1JUFwfeFQBEHmkEAtRZ8PkvxE&city=' + this.city;
       axios
-        .get("http://app.ticketmaster.com/discovery/v2/events.json?apikey=\tv9Gbr2U1JUFwfeFQBEHmkEAtRZ8PkvxE&city=\"warsaw\"")
+        .get(repoUrl)
         .then(function(response) {
           vm.events = response.data._embedded.events
           console.log(response.data._embedded.events);
