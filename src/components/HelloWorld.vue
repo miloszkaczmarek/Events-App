@@ -3,14 +3,15 @@
 
       <!--:style="{ backgroundImage: 'url(' + event.images[0].url + ')' }"-->
       <nav>
-      <input v-model="city" placeholder="your city">
-      <button class="button is-info" @click="getUsers">Check</button>
+        <input v-model="city" placeholder="your city">
+        <button class="button is-info" @click="getUsers">Check</button>
+        <button @click="sortedItems">fsdfsddf</button>
       </nav>
       <section>
-        <div v-for="event in events" class="oneEvent">
-          <h1>{{event.name}}</h1>
-          <h3>{{event.dates.start.localDate}}</h3>
-          <a :href="event.url" target="_blank" class="btn-buy">KUP BILET</a>
+        <div v-for="(event, index) in events" class="oneEvent" :style="{backgroundColor: color}">
+            <h1>{{event.name}}</h1>
+            <h3>{{event.dates.start.localDate}}</h3>
+            <a :href="event.url" target="_blank" class="btn-buy">KUP BILET</a>
         </div>
       </section>
   </div>
@@ -29,6 +30,7 @@ export default {
     return{
       events: [],
       city: 'berlin',
+      color: 'white',
     }
   },
   methods: {
@@ -39,13 +41,22 @@ export default {
         .get(repoUrl)
         .then(function(response) {
           vm.events = response.data._embedded.events
-          console.log(response.data._embedded.events[1].images[1]);
+          console.log(response.data._embedded.events);
         });
+      setTimeout(() => {
+        this.sortedItems();
+      },100)
+    },
+    sortedItems: function() {
+      this.events.sort( ( a, b) => {
+        return new Date(a.dates.start.localDate) - new Date(b.dates.start.localDate);
+      });
+      return this.events;
     }
   },
-  mounted(){
-    this.getUsers()
-  }
+  created(){
+    this.getUsers();
+  },
 }
 </script>
 
@@ -65,7 +76,6 @@ section{
   justify-content: center;
 }
 .oneEvent{
-  background-color: white;
   width: calc(50% - 2px);
   padding:100px 0;
   border:1px solid #1976D2;
@@ -81,7 +91,7 @@ section{
 }
   input{
     border: 0;
-    border-bottom: 2px solid #1976D2;
+    border-bottom: 2px solid white;
     width: 20%;
     font-size: 30px;
     line-height: 15px;
@@ -100,26 +110,30 @@ section{
     color: #BBDEFB;
   }
   button{
-    background: #1976D2;
+    background: white;
     padding: 20px 60px;
-    color: #fff;
+    color: #1976D2;
+    border-radius:10px;
     text-decoration: none;
     font-size: 1.45em;
     margin: 0 55px;
     outline:none;
     border: 0;
+    &:hover{
+      cursor:pointer;
+    }
   }
   nav{
     margin:50px 0;
   }
   .btn-buy{
     background-color:#1976D2;
-    padding: 20px 40px;
+    padding: 15px 30px;
     color:white;
     text-decoration: none;
-    border-radius:10px;
+    border-radius:7px;
     margin-top:50px;
-    font-size:12px;
+    font-size:13px;
   }
   h3{
     padding-bottom:50px;

@@ -13,6 +13,7 @@ body{
   margin:0;
   padding:0;
   box-sizing: border-box;
+  background-color: #1976D2;
 }
 #app {
   font-family: Montserrat, Helvetica, Arial, sans-serif;
@@ -25,15 +26,15 @@ body{
   padding: 30px;
   a {
     font-weight: 400;
-    color: white;
+    color: #1976D2;
     margin:120px 5px;
-    font-size:25px;
+    font-size:22px;
     text-decoration: none;
-    background-color: #1976D2;
+    background-color: white;
     padding:10px 35px;
     border-radius:7px;
     &.router-link-exact-active {
-      color: white;
+      color: #125699;
     }
   }
 }
