@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">City</router-link> |
+      <router-link to="/">City</router-link>
       <router-link to="/artist">Artist</router-link>
     </div>
     <router-view/>
@@ -15,7 +15,7 @@ body{
   box-sizing: border-box;
 }
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: Montserrat, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -24,10 +24,16 @@ body{
 #nav {
   padding: 30px;
   a {
-    font-weight: bold;
-    color: #2c3e50;
+    font-weight: 400;
+    color: white;
+    margin:120px 5px;
+    font-size:25px;
+    text-decoration: none;
+    background-color: #1976D2;
+    padding:10px 35px;
+    border-radius:7px;
     &.router-link-exact-active {
-      color: #42b983;
+      color: white;
     }
   }
 }

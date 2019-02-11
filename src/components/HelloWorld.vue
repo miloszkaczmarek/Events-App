@@ -1,15 +1,16 @@
 <template>
   <div class="hello">
-    <p>
+
+      <!--:style="{ backgroundImage: 'url(' + event.images[0].url + ')' }"-->
+      <nav>
       <input v-model="city" placeholder="your city">
-      <button class="button is-info" @click="getUsers">Get Repos</button>
-      <h5>{{ city }}</h5>
+      <button class="button is-info" @click="getUsers">Check</button>
+      </nav>
       <section>
-        <div v-for="event in events" class="oneEvent" :style="{ backgroundImage: 'url(' + event.images[0].url + ')' }">
-          <img :src="event.images[0].url" alt="">
-          <h5>{{event.name}}</h5>
-          <h5>{{event.dates.start.localDate}}</h5>
-          <a :href="event.url" target="_blank">KUP BILET</a>
+        <div v-for="event in events" class="oneEvent">
+          <h1>{{event.name}}</h1>
+          <h3>{{event.dates.start.localDate}}</h3>
+          <a :href="event.url" target="_blank" class="btn-buy">KUP BILET</a>
         </div>
       </section>
   </div>
@@ -27,7 +28,7 @@ export default {
   data: function(){
     return{
       events: [],
-      city: 'berlin'
+      city: 'berlin',
     }
   },
   methods: {
@@ -38,7 +39,7 @@ export default {
         .get(repoUrl)
         .then(function(response) {
           vm.events = response.data._embedded.events
-          console.log(response.data._embedded.events[1].images[0].url);
+          console.log(response.data._embedded.events[1].images[1]);
         });
     }
   },
@@ -49,6 +50,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,600,800&subset=latin-ext');
 h3 {
   margin: 40px 0 0;
 }
@@ -64,10 +67,11 @@ section{
 .oneEvent{
   background-color: white;
   width: calc(50% - 2px);
-  padding:50px 0;
-  border:1px solid black;
+  padding:100px 0;
+  border:1px solid #1976D2;
   background-repeat: no-repeat;
   background-size: cover;
+  transition: 1s;
   @media(max-width: 768px){
     width:100%;
   }
@@ -75,4 +79,56 @@ section{
     height:250px;
   }
 }
+  input{
+    border: 0;
+    border-bottom: 2px solid #1976D2;
+    width: 20%;
+    font-size: 30px;
+    line-height: 15px;
+    height: 40px;
+    text-align: center;
+    padding: 10px;
+    background: transparent;
+    color: #BBDEFB;
+
+    &:focus{
+      outline: 0;
+      color: #BBDEFB
+    }
+  }
+  input::placeholder {
+    color: #BBDEFB;
+  }
+  button{
+    background: #1976D2;
+    padding: 20px 60px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.45em;
+    margin: 0 55px;
+    outline:none;
+    border: 0;
+  }
+  nav{
+    margin:50px 0;
+  }
+  .btn-buy{
+    background-color:#1976D2;
+    padding: 20px 40px;
+    color:white;
+    text-decoration: none;
+    border-radius:10px;
+    margin-top:50px;
+    font-size:12px;
+  }
+  h3{
+    padding-bottom:50px;
+    font-family:Montserrat;
+    font-weight: 300;
+  }
+  h1{
+    font-size:2em;
+    font-family: Libre Baskerville;
+    font-weight:700;
+  }
 </style>
