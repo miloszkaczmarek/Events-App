@@ -2,18 +2,16 @@
   <div class="hello">
     <p>
       <input v-model="city" placeholder="your city">
-      <button
-        class="button is-info"
-        @click="getUsers">
-        Get Repos
-      </button>
+      <button class="button is-info" @click="getUsers">Get Repos</button>
       <h5>{{ city }}</h5>
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-      <div v-for="event in events">
-        <h5>{{event.name}}</h5>
-        <a :href="event.url" target="_blank">KUP BILET</a>
-      </div>
-    </p>
+      <section>
+        <div v-for="event in events" class="oneEvent" :style="{ backgroundImage: 'url(' + event.images[0].url + ')' }">
+          <img :src="event.images[0].url" alt="">
+          <h5>{{event.name}}</h5>
+          <h5>{{event.dates.start.localDate}}</h5>
+          <a :href="event.url" target="_blank">KUP BILET</a>
+        </div>
+      </section>
   </div>
 </template>
 
@@ -40,7 +38,7 @@ export default {
         .get(repoUrl)
         .then(function(response) {
           vm.events = response.data._embedded.events
-          console.log(response.data._embedded.events);
+          console.log(response.data._embedded.events[1].images[0].url);
         });
     }
   },
@@ -57,5 +55,24 @@ h3 {
 
 a {
   color: #42b983;
+}
+section{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.oneEvent{
+  background-color: white;
+  width: calc(50% - 2px);
+  padding:50px 0;
+  border:1px solid black;
+  background-repeat: no-repeat;
+  background-size: cover;
+  @media(max-width: 768px){
+    width:100%;
+  }
+  img{
+    height:250px;
+  }
 }
 </style>
