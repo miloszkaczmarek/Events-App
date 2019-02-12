@@ -1,11 +1,9 @@
 <template>
   <div class="hello">
-
       <!--:style="{ backgroundImage: 'url(' + event.images[0].url + ')' }"-->
       <nav>
         <input v-model="city" placeholder="your city">
         <button class="button is-info" @click="getUsers">Check</button>
-        <button @click="sortedItems">fsdfsddf</button>
       </nav>
       <section>
         <div v-for="(event, index) in events" class="oneEvent" :style="{backgroundColor: color}">
@@ -31,6 +29,7 @@ export default {
       events: [],
       city: 'berlin',
       color: 'white',
+      isLoading: true,
     }
   },
   methods: {
@@ -45,7 +44,7 @@ export default {
         });
       setTimeout(() => {
         this.sortedItems();
-      },100)
+      },200)
     },
     sortedItems: function() {
       this.events.sort( ( a, b) => {
@@ -57,6 +56,11 @@ export default {
   created(){
     this.getUsers();
   },
+  mounted () {
+    setTimeout(() => {
+      this.isLoading = false
+    }, 3000)
+  }
 }
 </script>
 
@@ -76,7 +80,7 @@ section{
   justify-content: center;
 }
 .oneEvent{
-  width: calc(50% - 2px);
+  width: calc(50% - 4px);
   padding:100px 0;
   border:1px solid #1976D2;
   background-repeat: no-repeat;
@@ -100,6 +104,11 @@ section{
     padding: 10px;
     background: transparent;
     color: #BBDEFB;
+
+    @media(max-width: 768px){
+      width:90%;
+      margin-bottom:20px;
+    }
 
     &:focus{
       outline: 0;
