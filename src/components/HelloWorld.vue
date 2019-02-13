@@ -38,7 +38,7 @@ export default {
     getUsers: function() {
       if(this.city != ''){
         var vm = this;
-        let repoUrl = 'http://app.ticketmaster.com/discovery/v2/events.json?apikey=\tv9Gbr2U1JUFwfeFQBEHmkEAtRZ8PkvxE&city=' + this.city;
+        let repoUrl = 'https://app.ticketmaster.com/discovery/v2/events.json?apikey=\tv9Gbr2U1JUFwfeFQBEHmkEAtRZ8PkvxE&city=' + this.city;
         axios
           .get(repoUrl)
           .then(function(response) {

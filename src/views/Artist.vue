@@ -38,7 +38,7 @@
       getUsers: function() {
         if(this.artist != ''){
           var vm = this;
-          let repoUrl = 'http://app.ticketmaster.com/discovery/v2/events.json?apikey=\tv9Gbr2U1JUFwfeFQBEHmkEAtRZ8PkvxE&keyword=' + this.artist;
+          let repoUrl = 'https://app.ticketmaster.com/discovery/v2/events.json?apikey=\tv9Gbr2U1JUFwfeFQBEHmkEAtRZ8PkvxE&keyword=' + this.artist;
           axios
             .get(repoUrl)
             .then(function(response) {
