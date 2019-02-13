@@ -10,7 +10,7 @@
         <h1>{{event.name}}</h1>
         <h3>{{event.dates.start.localDate}}</h3>
         <h3>{{event._embedded.venues[0].city.name}}</h3>
-        <a :href="event.url" target="_blank" class="btn-buy">KUP BILET</a>
+        <a :href="event.url" target="_blank" class="btn-buy">BUY TICKET</a>
       </div>
     </section>
   </div>
@@ -30,23 +30,25 @@
     data: function(){
       return{
         events: [],
-        artist: 'wiz khalifa',
+        artist: '',
         color: 'white',
       }
     },
     methods: {
       getUsers: function() {
-        var vm = this;
-        let repoUrl = 'http://app.ticketmaster.com/discovery/v2/events.json?apikey=\tv9Gbr2U1JUFwfeFQBEHmkEAtRZ8PkvxE&keyword=' + this.artist;
-        axios
-          .get(repoUrl)
-          .then(function(response) {
-            vm.events = response.data._embedded.events
-            console.log(response.data._embedded.events[0]._embedded.venues[0].city.name);
-          });
-        setTimeout(() => {
-          this.sortedItems();
-        },200)
+        if(this.artist != ''){
+          var vm = this;
+          let repoUrl = 'http://app.ticketmaster.com/discovery/v2/events.json?apikey=\tv9Gbr2U1JUFwfeFQBEHmkEAtRZ8PkvxE&keyword=' + this.artist;
+          axios
+            .get(repoUrl)
+            .then(function(response) {
+              vm.events = response.data._embedded.events
+              console.log(response.data._embedded.events[0]._embedded.venues[0].city.name);
+            });
+          setTimeout(() => {
+            this.sortedItems();
+          },600)
+        }
       },
       sortedItems: function() {
         this.events.sort( ( a, b) => {
@@ -64,6 +66,11 @@
 <style scoped lang="scss">
   @import url('https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700&subset=latin-ext');
   @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,600,800&subset=latin-ext');
+
+  $primaryColor: #1976D2;
+  $secondaryColor: white;
+  $extraColor: #BBDEFB;
+
   h3 {
     margin: 40px 0 0;
   }
@@ -79,7 +86,7 @@
   .oneEvent{
     width: calc(50% - 2px);
     padding:100px 0;
-    border:1px solid #1976D2;
+    border:1px solid $primaryColor;
     background-repeat: no-repeat;
     background-size: cover;
     transition: 1s;
@@ -92,7 +99,7 @@
   }
   input{
     border: 0;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid $secondaryColor;
     width: 20%;
     font-size: 30px;
     line-height: 15px;
@@ -100,7 +107,7 @@
     text-align: center;
     padding: 10px;
     background: transparent;
-    color: #BBDEFB;
+    color: $extraColor;
 
     @media(max-width: 768px){
       width:90%;
@@ -109,16 +116,16 @@
 
     &:focus{
       outline: 0;
-      color: #BBDEFB
+      color: $extraColor
     }
   }
   input::placeholder {
-    color: #BBDEFB;
+    color: $extraColor;
   }
   button{
-    background: white;
+    background: $secondaryColor;
     padding: 20px 60px;
-    color: #1976D2;
+    color: $primaryColor;
     border-radius:10px;
     text-decoration: none;
     font-size: 1.45em;
@@ -133,9 +140,9 @@
     margin:50px 0;
   }
   .btn-buy{
-    background-color:#1976D2;
+    background-color:$primaryColor;
     padding: 15px 30px;
-    color:white;
+    color:$secondaryColor;
     text-decoration: none;
     border-radius:7px;
     font-size:13px;
